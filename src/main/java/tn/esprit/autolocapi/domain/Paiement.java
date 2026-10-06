@@ -1,9 +1,6 @@
 package tn.esprit.autolocapi.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,12 +8,12 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Paiement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,4 +21,8 @@ public class Paiement {
     BigDecimal montant;
     LocalDate datePaiement;
     ModePaiement modePaiement;
+
+    @ManyToOne
+    @JoinColumn(name = "contrat_id", nullable = false)
+    private Contrat contrat;
 }
