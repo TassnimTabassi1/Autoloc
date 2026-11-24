@@ -1,5 +1,7 @@
 package tn.esprit.autolocapi.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +12,7 @@ import tn.esprit.autolocapi.service.IVehiculeService;
 
 @AllArgsConstructor
 @RequestMapping("/vehicules")
+@Tag(name = "gestion des vehicules")
 public class VehiculeController {
     private final IVehiculeService vehiculeService;
     @PostMapping("/ajouterVehicule")
@@ -34,5 +37,17 @@ public Vehicule modifierVehicule(@RequestBody Vehicule vehicule){
     @GetMapping("/recupererTousVehicules")
     public java.util.List<Vehicule> getAllVehicule(){
         return vehiculeService.getAllVehicule();
+    }
+
+    @Operation(summary = "affecter un equipement a un vehicule")
+    @PutMapping("/affecterEquipement/{idVehicule}/{idEquipement}")
+    public Vehicule affecterEquipement(@PathVariable Long idVehicule, @PathVariable Long idEquipement) {
+        return vehiculeService.affecterEquipement(idVehicule, idEquipement);
+    }
+
+    @Operation(summary = "desaffecter un equipement d'un vehicule")
+    @PutMapping("/desaffecterEquipement/{idVehicule}/{idEquipement}")
+    public Vehicule desaffecterEquipement(@PathVariable Long idVehicule, @PathVariable Long idEquipement) {
+        return vehiculeService.desaffecterEquipement(idVehicule, idEquipement);
     }
 }

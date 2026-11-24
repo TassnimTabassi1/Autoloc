@@ -3,6 +3,7 @@ package tn.esprit.autolocapi.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tn.esprit.autolocapi.domain.Agence;
+import tn.esprit.autolocapi.domain.Vehicule;
 import tn.esprit.autolocapi.repository.AgenceRepository;
 import java.util.List;
 
@@ -34,5 +35,15 @@ public class IAgenceServiceImp implements IAgenceService {
     @Override
     public void supprimerAgenceById(Long id) {
         agenceRepository.deleteById(id);
+    }
+
+    @Override
+    public Agence ajouterAgenceEtAffecterVehicules(Agence agence) {
+        // chaque vehicule recoit l'agence (Vehicule est le proprietaire de la relation)
+        for (Vehicule v : agence.getVehicules()) {
+            v.setAgence(agence);
+        }
+        // cascade ALL : l'agence et ses vehicules sont enregistres ensemble
+        return agenceRepository.save(agence);
     }
 }

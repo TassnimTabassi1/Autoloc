@@ -1,5 +1,7 @@
 package tn.esprit.autolocapi.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.autolocapi.domain.Contrat;
@@ -8,9 +10,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/contrat")
+@Tag(name="gestion de contrat" , description = "crud")
 @AllArgsConstructor
 public class ContratController {
     private final IContratService contratService;
+    @Operation(summary  = "ajouter un contrat")
 
     @PostMapping("/ajouter")
     public Contrat ajouter(@RequestBody Contrat contrat) {
@@ -36,4 +40,4 @@ public class ContratController {
     public void supprimer(@PathVariable Long id) {
         contratService.supprimerContratById(id);
     }
-}
+}

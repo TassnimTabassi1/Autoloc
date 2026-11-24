@@ -28,6 +28,6 @@ public class Employe {
     private RoleEmploye role;
 
     @ManyToOne
-    @JoinColumn(name = "agence_id", nullable = false)
+    @JoinColumn(name = "agence_id", nullable = true)
     private Agence agence;
-}
+}
